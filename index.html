@@ -211,7 +211,7 @@ footer .big span{color:var(--medal)}
   <p class="lede">Flight paths from Auckland to each start line. Gold is run, coral is booked, dotted blue is still to come. Europe is crowded, so it gets its own close-up.</p>
   <div class="maps">
     <div class="mapcard"><p class="maptitle">The world</p><div class="mapscroll"><svg id="world" viewBox="0 0 1000 430" role="img" aria-label="World map of race cities with flight arcs from Auckland"></svg></div></div>
-    <div class="mapcard"><p class="maptitle">Europe close-up · 10 letters</p><div class="mapscroll"><svg id="europe" viewBox="0 0 690 320" role="img" aria-label="Europe close-up of race cities"></svg></div></div>
+    <div class="mapcard"><p class="maptitle">Europe close-up · 11 letters</p><div class="mapscroll"><svg id="europe" viewBox="0 0 690 320" role="img" aria-label="Europe close-up of race cities"></svg></div></div>
   </div>
 </section>
 
@@ -253,7 +253,7 @@ const R = [
  {l:"R",city:"Rome",cc:"Italy",s:"d",lat:41.9,lon:12.5,note:"Through the Eternal City."},
  {l:"S",city:"Sydney",cc:"Australia",s:"d",lat:-33.87,lon:151.21,note:"Harbour Bridge to the Opera House. Singapore is a bonus S."},
  {l:"T",city:"Taupō",cc:"New Zealand",s:"d",lat:-38.69,lon:176.07,note:"Ultra distance around the lake."},
- {l:"U",city:"Uluru",cc:"Australia",s:"p",y:2036,m:"Jul",lat:-25.34,lon:131.04,note:"Red-centre outback course."},
+ {l:"U",city:"Utrecht",cc:"Netherlands",s:"p",y:2036,m:"Jul",lat:52.09,lon:5.12,note:"Canals, bikes and the Dom Tower."},
  {l:"V",city:"Vienna",cc:"Austria",s:"p",y:2029,m:"Apr",lat:48.21,lon:16.37,note:"Imperial city, finish on the Ringstrasse."},
  {l:"W",city:"Wellington",cc:"New Zealand",s:"p",y:2035,m:"Jul",lat:-41.29,lon:174.78,note:"Home soil and harbour views."},
  {l:"X",city:"Xiamen",cc:"China",s:"p",y:2033,m:"Jan",lat:24.48,lon:118.09,note:"Coastal course on the island city."},
@@ -341,7 +341,7 @@ el("text",{x:wx(0)+2,y:wy(0)-6,fill:"var(--fog)","font-size":10,"font-family":"D
 // Europe box
 const eb={x:wx(-12),y:wy(58),w:wx(32)-wx(-12),h:wy(38)-wy(58)};
 el("rect",{x:eb.x,y:eb.y,width:eb.w,height:eb.h,rx:6,fill:"none",stroke:"var(--mist)","stroke-opacity":.5,"stroke-dasharray":"3 3"},world);
-el("text",{x:eb.x,y:eb.y-6,fill:"var(--mist)","font-size":12},world).textContent="EUROPE · 10 LETTERS";
+el("text",{x:eb.x,y:eb.y-6,fill:"var(--mist)","font-size":12},world).textContent="EUROPE · 11 LETTERS";
 const home=R[0], hx=wx(home.lon), hy=wy(home.lat);
 const arcs=el("g",{},world);
 const order=[...R].sort((a,b)=>({d:0,b:1,p:2})[a.s]-({d:0,b:1,p:2})[b.s]);
@@ -354,7 +354,7 @@ order.forEach((r,i)=>{
   p.style.animationDelay=(i*0.06)+"s";
 });
 // world labels with manual offsets for clusters [dx,dy]; Europe letters stay unlabelled here
-const EU=new Set(["B","D","E","F","I","L","P","R","V","Z"]);
+const EU=new Set(["B","D","E","F","I","L","P","R","U","V","Z"]);
 const OFF={J:[-18,-4],A:[-26,-6],T:[22,-10],H:[24,8],W:[18,22],Q:[-22,10],O:[-22,10],K:[-6,-18],Y:[18,-4],S:[18,8],G:[18,-6],M:[-20,12],U:[-18,-8],C:[-18,-8],X:[0,-16],N:[0,-16]};
 const pts=el("g",{},world);
 R.forEach(r=>{
@@ -377,7 +377,7 @@ for(let lat=58;lat>=38;lat-=2)for(let lon=-12;lon<=32;lon+=2){el("circle",{cx:ex
 // route in planned order through Europe
 const euRoute=R.filter(r=>EU.has(r.l)&&r.y).sort((a,b)=>a.y-b.y||MONTHS.indexOf(a.m)-MONTHS.indexOf(b.m));
 el("path",{d:euRoute.map((r,i)=>(i?"L":"M")+ex(r.lon)+","+ey(r.lat)).join(" "),fill:"none",stroke:"var(--sky)","stroke-opacity":.25,"stroke-dasharray":"2 5","stroke-linecap":"round"},eu);
-const EOFF={Z:[14,-10],F:[-16,4],R:[16,12],P:[-14,-8],V:[14,-6],B:[-14,-10],L:[14,-8],D:[-14,-6],E:[14,-6],I:[-14,-10]};
+const EOFF={U:[14,-8],Z:[14,-10],F:[-16,4],R:[16,12],P:[-14,-8],V:[14,-6],B:[-14,-10],L:[14,-8],D:[-14,-6],E:[14,-6],I:[-14,-10]};
 R.filter(r=>EU.has(r.l)).forEach(r=>{
   const x=ex(r.lon),y=ey(r.lat),[dx,dy]=EOFF[r.l]||[12,-8];
   el("circle",{cx:x,cy:y,r:r.s==="b"?7:5.5,fill:COL[r.s],stroke:"var(--night-2)","stroke-width":2},eu);
